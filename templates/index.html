@@ -1,7 +1,7 @@
 {% load static %}
 {% include 'header.html' %}
 		<!-- One -->
-			<section id="one" class="main style1">
+			<section id="one" class="main style1" style="background-color: #171515;">
 				<div class="container">
 					<div class="row gtr-150">
 						<div class="col-6 col-12-medium">
@@ -9,32 +9,40 @@
 								<h2>Lorem ipsum dolor adipiscing<br />
 								amet dolor consequat</h2>
 							</header>
-							<form method="post" action="#">
+							<form method="post" action="{% url 'githubTool:create_project' %}#one">
+								{% csrf_token %}
 								<div class="row gtr-uniform gtr-50">
 									<div class="col-6 col-12-xsmall">
-										<input type="text" name="demo-name" id="demo-name" value="" placeholder="Repo. Name" />
+										<input type="text" name="repo_name" id="repo_name" value="" placeholder="Repo. Name"  required/>
 									</div>
-									<div style="display: inline-block; justify-content: left;">
+									<div class="col-6 col-12-xsmall">
+										<input type="text" name="access_token" id="access_token" value="" placeholder="Token" required/>
+									</div>
 										<div class="col-4 col-12-small">
-											<input type="radio" id="demo-priority-low" name="demo-priority" checked>
-											<label for="demo-priority-low">Public</label>
+											<input type="radio" id="public" name="is_private" value="False" checked>
+											<label for="public">Public</label>
 										</div>
 										<div class="col-4 col-12-small">
-											<input type="radio" id="demo-priority-normal" name="demo-priority">
-											<label for="demo-priority-normal">Private</label>
+											<input type="radio" id="private" name="is_private" value="True">
+											<label for="private">Private</label>
 										</div>
+									
+									
+									<div class="col-12">
+										<textarea name="description" id="description" placeholder="Enter Repo Description" rows="4" required></textarea>
 									</div>
 									
 									<div class="col-12">
-										<textarea name="demo-message" id="demo-message" placeholder="Enter Repo Description" rows="4"></textarea>
-									</div>
+										<p style="visibility: {{ request.GET.visible|default:'hidden' }};">Repo is created</p>
+									</div>									
 									<div class="col-12">
 										<ul class="actions">
-											<li><button type="submit" class="primary" >Done</button></li>
+											<li><button type="submit" class="button scrolly">Done</button></li>
 										</ul>
 									</div>
 								</div>
 							</form>
+							
 						</div>
 						<div class="col-6 col-12-medium imp-medium">
 							<span class="image fit"><img src="{% static 'images/pic01.jpg' %}" alt="" /></span>
@@ -121,6 +129,5 @@
 			</section>
 
 		<!-- Five -->
-		
 		
 {% include 'footer.html' %}
